@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2eu7lsgbojkn"]
+[gd_scene load_steps=5 format=3 uid="uid://d2eu7lsgbojkn"]
 
 [ext_resource type="PackedScene" uid="uid://dj420sm7janwv" path="res://scenes/Wall.tscn" id="1_cv01c"]
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_tmwkx"]
+[ext_resource type="Script" path="res://scenes/script/game.gd" id="1_tmwkx"]
 [ext_resource type="PackedScene" uid="uid://wx4eiomls3l2" path="res://scenes/player.tscn" id="1_wbbyd"]
-[ext_resource type="PackedScene" uid="uid://kogm7ywo3g03" path="res://scenes/ball.tscn" id="4_q23ur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6d8mt"]
 
@@ -30,6 +29,3 @@ rotation = -1.5708
 [node name="BottomWall" parent="." instance=ExtResource("1_cv01c")]
 material = SubResource("CanvasItemMaterial_6d8mt")
 position = Vector2(590, 652)
-
-[node name="Ball" parent="." instance=ExtResource("4_q23ur")]
-position = Vector2(568, 434)

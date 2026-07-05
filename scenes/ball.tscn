@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://kogm7ywo3g03"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_al5s2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_j2g7h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_43e50"]
+
+[node name="Ball" type="CharacterBody2D"]
+script = ExtResource("1_al5s2")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(20.0227, 20)
+mesh = SubResource("SphereMesh_j2g7h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_43e50")
