@@ -1,35 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2eu7lsgbojkn"]
+[gd_scene format=3 uid="uid://d2eu7lsgbojkn"]
 
 [ext_resource type="PackedScene" uid="uid://dj420sm7janwv" path="res://scenes/Wall.tscn" id="1_cv01c"]
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_tmwkx"]
+[ext_resource type="Script" uid="uid://hg55ixibm374" path="res://scripts/game.gd" id="1_tmwkx"]
 [ext_resource type="PackedScene" uid="uid://wx4eiomls3l2" path="res://scenes/player.tscn" id="1_wbbyd"]
 [ext_resource type="PackedScene" uid="uid://kogm7ywo3g03" path="res://scenes/ball.tscn" id="4_q23ur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6d8mt"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=1087088771]
 script = ExtResource("1_tmwkx")
 
-[node name="Player" parent="." instance=ExtResource("1_wbbyd")]
+[node name="Player" parent="." unique_id=1016347562 instance=ExtResource("1_wbbyd")]
 position = Vector2(590, 584)
 
-[node name="TopWall" parent="." instance=ExtResource("1_cv01c")]
+[node name="TopWall" parent="." unique_id=1621931973 instance=ExtResource("1_cv01c")]
 material = SubResource("CanvasItemMaterial_6d8mt")
 position = Vector2(574, 0)
 
-[node name="LeftWall" parent="." instance=ExtResource("1_cv01c")]
+[node name="LeftWall" parent="." unique_id=963873707 instance=ExtResource("1_cv01c")]
 material = SubResource("CanvasItemMaterial_6d8mt")
 position = Vector2(0, 291)
 rotation = -1.5708
 
-[node name="RightWall" parent="." instance=ExtResource("1_cv01c")]
+[node name="RightWall" parent="." unique_id=1751599169 instance=ExtResource("1_cv01c")]
 material = SubResource("CanvasItemMaterial_6d8mt")
 position = Vector2(1150, 309)
 rotation = -1.5708
 
-[node name="BottomWall" parent="." instance=ExtResource("1_cv01c")]
+[node name="BottomWall" parent="." unique_id=1060371479 instance=ExtResource("1_cv01c")]
 material = SubResource("CanvasItemMaterial_6d8mt")
 position = Vector2(590, 652)
 
-[node name="Ball" parent="." instance=ExtResource("4_q23ur")]
+[node name="Ball" parent="." unique_id=917334773 instance=ExtResource("4_q23ur")]
 position = Vector2(568, 434)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1319885137]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=846766506]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0

@@ -1,8 +1,9 @@
 extends StaticBody2D
 
-func _ready() -> void:
-	var area = get_node("%Area2D")
-	
+signal destroyed(points: int)
 
-func _on_body_entered():
+@export var points := 10
+
+func hit() -> void:
+	destroyed.emit(points)
 	queue_free()

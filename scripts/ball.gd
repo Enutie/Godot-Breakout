@@ -25,6 +25,10 @@ func _physics_process(delta):
 		# Optional: Increase speed slightly on each bounce
 		#velocity *= speed_multiplier
 
+		var collider = collision.get_collider()
+		if collider.has_method("hit"):
+			collider.hit()
+
 func reset_ball():
 	# Reset ball to starting position (adjust position as needed)
 	position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y * 0.7)

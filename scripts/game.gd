@@ -5,9 +5,12 @@ var brick := preload("res://scenes/brick.tscn")
 @export var start_position := Vector2(105, 50)
 @export var number_of_bricks := 16
 @export var rows := 8  # Adding rows for traditional Breakout layout
+var score := 0
 
-func _on_body_entered():
-	print("Brick hit!")
+func _on_brick_destroyed(points: int) -> void:
+	score += points
+	%ScoreLabel.text = "SCORE %d" % score
+
 
 func generate_bricks():
 	var viewport_width = get_viewport_rect().size.x
@@ -23,6 +26,8 @@ func generate_bricks():
 		
 		for col in number_of_bricks:
 			var brick_instance: StaticBody2D = brick.instantiate()
+			brick_instance.destroyed.connect(_on_brick_destroyed)
+
 			
 			# Calculate position for each brick
 			var x_pos = start_position.x + (col * (brick_width + gap_size))
