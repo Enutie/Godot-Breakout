@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://hg55ixibm374" path="res://scripts/game.gd" id="1_tmwkx"]
 [ext_resource type="PackedScene" uid="uid://wx4eiomls3l2" path="res://scenes/player.tscn" id="1_wbbyd"]
 [ext_resource type="PackedScene" uid="uid://kogm7ywo3g03" path="res://scenes/ball.tscn" id="4_q23ur"]
+[ext_resource type="AudioStream" uid="uid://csnpamlo5qx1d" path="res://assets/sounds/brick.wav" id="5_iywne"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6d8mt"]
 
@@ -64,5 +65,8 @@ text = "GAME OVER - tryk ENTER"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1915849056]
 position = Vector2(576, 716)
 shape = SubResource("RectangleShape2D_oudjk")
+
+[node name="sfx_destroyed" type="AudioStreamPlayer2D" parent="." unique_id=1389375464]
+stream = ExtResource("5_iywne")
 
 [connection signal="body_entered" from="DeathZone" to="." method="_on_death_zone_body_entered"]

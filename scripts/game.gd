@@ -6,14 +6,23 @@ var brick := preload("res://scenes/brick.tscn")
 @export var number_of_bricks := 16
 @export var rows := 8  # Adding rows for traditional Breakout layout
 
+@onready var sfx_destroyed = $sfx_destroyed
+
 var lives := 3
 var game_over := false
 var score := 0
+var bricks_left := number_of_bricks * rows
 
 func _on_brick_destroyed(points: int) -> void:
+	sfx_destroyed.play()
 	score += points
+	bricks_left -= 1
 	%ScoreLabel.text = "SCORE %d" % score
-
+	if bricks_left <= 0:
+		game_over = true
+		%GameOverLabel.text = "Congratulations, you won! - Pres enter to play again"
+		%GameOverLabel.visible = true
+		$Ball.queue_free()
 
 func generate_bricks():
 	var viewport_width = get_viewport_rect().size.x
@@ -22,6 +31,7 @@ func generate_bricks():
 	# Calculate brick width based on available space and gaps
 	var total_gap_space = gap_size * (number_of_bricks - 1)
 	var brick_width = (playable_width - total_gap_space) / number_of_bricks
+	bricks_left = number_of_bricks * rows
 	
 	# Create a grid of bricks
 	for row in rows:
@@ -67,8 +77,10 @@ func _on_death_zone_body_entered(body: Node2D) -> void:
 	else:
 		body.queue_free()
 		game_over = true
+		%GameOverLabel.text = "GAME OVER - tryk ENTER"
 		%GameOverLabel.visible = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	if game_over and event.is_action_pressed("ui_accept"):
+		get_tree().paused = false
 		get_tree().reload_current_scene()

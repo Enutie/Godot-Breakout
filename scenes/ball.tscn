@@ -1,18 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://kogm7ywo3g03"]
+[gd_scene format=3 uid="uid://kogm7ywo3g03"]
 
-[ext_resource type="Script" path="res://scripts/ball.gd" id="1_al5s2"]
+[ext_resource type="Script" uid="uid://bo5njoh0fw7og" path="res://scripts/ball.gd" id="1_al5s2"]
+[ext_resource type="AudioStream" uid="uid://djj01sfhmroyc" path="res://assets/sounds/bounce.wav" id="2_cxlvu"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_j2g7h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_43e50"]
 
-[node name="Ball" type="CharacterBody2D"]
+[node name="Ball" type="CharacterBody2D" unique_id=1690374178]
 script = ExtResource("1_al5s2")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1696644415]
 position = Vector2(0, 1.90735e-06)
 scale = Vector2(20.0227, 20)
 mesh = SubResource("SphereMesh_j2g7h")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499852450]
 shape = SubResource("CircleShape2D_43e50")
+
+[node name="sfx_bounce" type="AudioStreamPlayer2D" parent="." unique_id=64520482]
+stream = ExtResource("2_cxlvu")

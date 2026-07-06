@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var speed_multiplier = 1.02
 var direction = Vector2.ZERO
 
+@onready var sfx_bounce = $sfx_bounce
+
 func _ready():
 	# Start the ball moving in a random diagonal direction
 	randomize()
@@ -21,13 +23,15 @@ func _physics_process(delta):
 		velocity = velocity.bounce(normal)
 		
 		# Play bounce sound (optional)
-		#$BounceSound.play()
+		
 		
 		velocity = (velocity * speed_multiplier).limit_length(max_speed)
 
 		var collider = collision.get_collider()
 		if collider.has_method("hit"):
 			collider.hit()
+		else:
+			sfx_bounce.play()
 
 func reset_ball():
 	# Reset ball to starting position (adjust position as needed)
