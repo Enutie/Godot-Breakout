@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 # Ball properties
 @export var initial_speed = 400.0
-@export var speed_multiplier = 1.1  # Optional: increase speed over time
+@export var max_speed = 800.0
+@export var speed_multiplier = 1.02
 var direction = Vector2.ZERO
 
 func _ready():
@@ -22,8 +23,7 @@ func _physics_process(delta):
 		# Play bounce sound (optional)
 		#$BounceSound.play()
 		
-		# Optional: Increase speed slightly on each bounce
-		#velocity *= speed_multiplier
+		velocity = (velocity * speed_multiplier).limit_length(max_speed)
 
 		var collider = collision.get_collider()
 		if collider.has_method("hit"):

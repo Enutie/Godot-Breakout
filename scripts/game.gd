@@ -5,6 +5,9 @@ var brick := preload("res://scenes/brick.tscn")
 @export var start_position := Vector2(105, 50)
 @export var number_of_bricks := 16
 @export var rows := 8  # Adding rows for traditional Breakout layout
+
+var lives := 3
+var game_over := false
 var score := 0
 
 func _on_brick_destroyed(points: int) -> void:
@@ -40,7 +43,7 @@ func generate_bricks():
 			if collision_shape.shape is RectangleShape2D:
 				# Assuming the original sprite and collision shape are 1 unit wide
 				sprite.scale.x = brick_width
-				collision_shape.shape.extents.x = brick_width / 2
+				collision_shape.shape.size.x = brick_width
 			
 			# Optional: Assign different colors per row
 			var colors = [Color.RED, Color.ORANGE, Color.GREEN, Color.YELLOW]
@@ -52,3 +55,20 @@ func generate_bricks():
 func _ready():
 	generate_bricks()
 	
+
+
+func _on_death_zone_body_entered(body: Node2D) -> void:
+	if not body.has_method("reset_ball"):
+		return
+	lives -= 1
+	%LivesLabel.text = "LIVES %d" % lives
+	if lives > 0:
+		body.reset_ball()
+	else:
+		body.queue_free()
+		game_over = true
+		%GameOverLabel.visible = true
+
+func _unhandled_input(event: InputEvent) -> void:
+	if game_over and event.is_action_pressed("ui_accept"):
+		get_tree().reload_current_scene()
