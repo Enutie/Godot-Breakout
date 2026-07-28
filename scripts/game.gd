@@ -31,7 +31,6 @@ func generate_bricks():
 	# Calculate brick width based on available space and gaps
 	var total_gap_space = gap_size * (number_of_bricks - 1)
 	var brick_width = (playable_width - total_gap_space) / number_of_bricks
-	bricks_left = number_of_bricks * rows
 	
 	# Create a grid of bricks
 	for row in rows:
@@ -64,6 +63,7 @@ func generate_bricks():
 
 func _ready():
 	generate_bricks()
+	sfx_destroyed.max_polyphony = 4
 	
 
 
@@ -82,5 +82,4 @@ func _on_death_zone_body_entered(body: Node2D) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if game_over and event.is_action_pressed("ui_accept"):
-		get_tree().paused = false
 		get_tree().reload_current_scene()
