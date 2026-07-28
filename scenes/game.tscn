@@ -58,7 +58,16 @@ offset_left = 485.0
 offset_top = 302.0
 offset_right = 678.0
 offset_bottom = 330.0
-text = "GAME OVER - tryk ENTER"
+text = "GAME OVER - PRESS ENTER"
+
+[node name="HighScore" type="Label" parent="CanvasLayer" unique_id=2035798257]
+unique_name_in_owner = true
+visible = false
+offset_left = 514.0
+offset_top = 226.0
+offset_right = 653.0
+offset_bottom = 275.0
+text = "HIGHSCORE: "
 
 [node name="DeathZone" type="Area2D" parent="." unique_id=58205417]
 

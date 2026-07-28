@@ -12,6 +12,23 @@ var lives := 3
 var game_over := false
 var score := 0
 var bricks_left := number_of_bricks * rows
+var high := 0
+var config = ConfigFile.new()
+
+func persist_high_score(score: int) -> void:
+	if score > high:
+		high = score
+		config.set_value("score", "high", high)
+		config.save("user://highscore.cfg")
+
+func set_game_over_labels(won: bool) -> void:
+	if won:
+		%GameOverLabel.text = "Congratulations, you won! - Pres enter to play again"
+	else: 
+		%GameOverLabel.text = "Game over! - Pres enter to play again"
+	%GameOverLabel.visible = true
+	%HighScore.text = "HIGHSCORE: %d" % high
+	%HighScore.visible = true
 
 func _on_brick_destroyed(points: int) -> void:
 	sfx_destroyed.play()
@@ -20,9 +37,14 @@ func _on_brick_destroyed(points: int) -> void:
 	%ScoreLabel.text = "SCORE %d" % score
 	if bricks_left <= 0:
 		game_over = true
-		%GameOverLabel.text = "Congratulations, you won! - Pres enter to play again"
-		%GameOverLabel.visible = true
+		persist_high_score(score)
+		set_game_over_labels(true)
 		$Ball.queue_free()
+
+func init_high_score() -> void:
+	var err = config.load("user://highscore.cfg")
+	if err == OK:
+		high = config.get_value("score", "high", 0)
 
 func generate_bricks():
 	var viewport_width = get_viewport_rect().size.x
@@ -63,6 +85,7 @@ func generate_bricks():
 
 func _ready():
 	generate_bricks()
+	init_high_score()
 	sfx_destroyed.max_polyphony = 4
 	
 
@@ -77,8 +100,8 @@ func _on_death_zone_body_entered(body: Node2D) -> void:
 	else:
 		body.queue_free()
 		game_over = true
-		%GameOverLabel.text = "GAME OVER - tryk ENTER"
-		%GameOverLabel.visible = true
+		persist_high_score(score)
+		set_game_over_labels(false)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if game_over and event.is_action_pressed("ui_accept"):
